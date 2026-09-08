@@ -1,0 +1,167 @@
+# Modularisation {#modularisation}
+
+#### Objectifs {.unnumbered}
+
+-   Apprendre à modulariser son code
+
+-   Appréhender les notions liées aux fonctions
+
+-   Apprendre à écrire des fonctions
+
+-   Apprendre à documenter une fonction
+
+#### Prérequis {.unnumbered}
+
+Pour comprendre les notions dans ce module, vous devez être capables de travailler dans RStudio et d'être familiarisés avec les scripts R et les fichiers R Markdown. Les fonctions sont, dans R, les briques de construction.
+
+## Les fonctions {#fonctions}
+
+À chaque fois que vous utilisez R vous employez des fonctions sans plus y porter attention comme la fonction `mean()` par exemple. Vous pouvez cependant écrire vos propres fonctions qui seront adaptées à votre problématique. La règle est assez simple : **si vous répétez des blocs de codes plus de deux ou trois fois, il faut réaliser une fonction**.
+
+L'utilisation de fonctions a plusieurs avantages :
+
+-   On évite de répéter des blocs de codes plusieurs fois
+
+-   On limite les possibilités de bug et leur correction ne doit être faite qu'à un seul endroit
+
+-   On rend notre code plus lisible
+
+Une fonction se présente comme ci-dessous :
+
+```{r, eval=FALSE}
+my_function(arg1, arg2)
+```
+
+La fonction porte un nom explicite suivi de parenthèses. À l'intérieur des parenthèses, on retrouve les **arguments** de la fonction.
+
+```{block, type="info"}
+Plusieurs fonction portant sur une même problématique se regroupe dans un package comme vous avez également l'habitude d'en utiliser comme {data.io}, {chart}, {knitr}. Néanmoins, ces notions ne seront pas détaillé au sein de ce module. Le package est très utile lorsque vous devez employer vos fonctions dans plusieurs projets différents. Il sera détaillé dans le module 12.
+```
+
+### Nom de la fonction et de ses arguments
+
+S'il y a bien une question qui va vous prendre la tête et qui requiert généralement un certain temps de réflexion c'est le nom de votre fonction et de ses arguments. Un nom mal choisi et/ou farfelu voue votre fonction à l'oubli. Il faut essayer d'avoir un nom court et évoquant le rôle de la fonction. Essayez de respecter la convention suivante qui veut que le nom d'une fonction soit un verbe et que ses arguments soient des noms. De plus, il est de plus en plus courant de respecter le "snake_case" (tout est en minuscule séparé par des sous-tirets)
+
+```{block, type="warning"}
+Au final, vous verrez que R n'est pas homogène. R est un langage qui évolue au cours du temps et ce depuis 1993, ce qui explique ce manque d'homogénéité. Cependant, restez cohérent, fixez vous vos propres conventions et respectez-les. 
+
+Imaginons que vous écrivez plusieurs fonctions : 
+
+- `CV()`
+
+- `Rescale01()`
+
+- `reg_lin()`
+
+- `TriMesTer()`
+
+- `MonIncroyable.fonction()`
+
+Ne faites pas cela ! Soyez cohérent dans le nommage et préférez soit le "snake_case" (tout en minuscule avec les mots séparés par des traits soulignés), soit le "camelCase" (mots accolés dont la première lettre est en majuscule, à l'exception du premier mot) sans mélanger ces deux formes.
+
+- `ceci_est_du_snake_case`
+
+- `ceciEstDuCamelCase`
+```
+
+Tout comme pour le nom des fonctions, le nom des arguments est important. Les arguments se doivent d'être clairs. Il existe néanmoins des conventions d'usage.
+
+-   `x`, `y`, `z` : vecteurs
+
+-   `w` : un vecteur de pondérations (w est le diminutif de *weights*)
+
+-   `df` : un tableau de données (*data frame*)
+
+-   `i`, `j` : indice numérique (par exemple pour spécifier les colonnes et les lignes d'un tableau de données)
+
+-   `n` : un nombre d'items dans un échantillon, un nombre de lignes dans un tableau, etc.
+
+-   `p` : un nombre de colonnes dans un tableau
+
+-   ...
+
+Vous retrouverez en plus des arguments comme `na.rm=`. Il s'agit également d'arguments conventionnels. Si vous avez le besoin d'éliminer les valeurs manquantes de vos calculs dans la fonction, ajoutez-lui cet argument. Ne le nommez pas autrement pour le plaisir, car les autres utilisateurs seront déboussolés par vos choix inhabituels. Par exemple, si vous avez opté pour le snake_case, réfrénez-vous à écrire `na_rm=`. C'est, certes, plus cohérent par rapport à vos propres conventions, mais cela sort de la convention générale et la différence entre `.` et `_` est suffisamment subtile à la lecture du code pour que de nombreuses personnes ne le remarquent même pas et commettent ensuite une erreur !
+
+## Documenter sa fonction {#documenter}
+
+La documentation d'une fonction est une étape souvent négligée. Cependant, une fonction bien documentée est une fonction qui sera employée à l'avenir. Les fonctions mal documentées sont des fonctions qui seront généralement peu employées, souvent mal employées et enfin oubliées. Lorsque l'on souhaite écrire une fonction, il convient de la documenter directement. La documentation se fait par le biais de deux outils principalement que vous pouvez inclure dans un package (voir module 12) : la page d'aide de la fonction et une "vignette".
+
+La page d'aide des fonctions R est généralement assez courte et très technique. Une section exemples éventuelle vous montre comment utiliser la fonction en pratique. Examiner les pages d'aide des deux fonctions suivantes que vous activez à l'aide de l'instruction `?<fonction>` pour vous en faire une idée.
+
+```{r, eval=FALSE}
+?sd
+?dplyr::filter
+```
+
+Pour rédiger l'information nécessaire à l'élaboration de la page d'aide de votre fonction, vous pouvez vous aider d'un "template" calculé par RStudio. Placez votre curseur à l'intérieur de votre fonction dans le fichier script R. Sélectionnez l'entrée de menu `Code -> Insert Roxygen Skeleton`. Un squelette de documentation s'ajoute à votre fonction. Il est rédigé dans un format qui s'appelle **Roxygen**. Voici
+
+```{r, eval=FALSE}
+#' coefficient of variation (CV)
+#'
+#' @param x a numeric vecteur
+#' @param na.rm shouls missing values be eliminated from the calculation? `FALSE` by default.
+#'
+#' @return
+#' A single value is returned with the standard deviation dived by the mean times 100.
+#' 
+#' @export
+#'
+#' @examples
+#' vec <- rnorm(10, mean = 3, sd = 5)
+#' cv(vec)
+cv <- function(x, na.rm = FALSE) {
+  sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm) * 100
+}
+```
+
+Examinez l'exemple ci-dessus. Vous avez écrit une fonction `cv()`. Tout le commentaire au-dessus est le contenu Roxygen qui documente votre fonction. Chaque ligne commence par `#'`. La première ligne est un titre, les autres sont des **champs** particuliers qui seront interprétés par le convertisseur en page d'aide. Par exemple pour documenter un argument de votre fonction, vous utilisez `@param <arg> <description>` avec l'étiquette `@param`. Pareil pour `@return` (ce que la fonction renvoie), ou `@examples`, un ou plusieurs exemples d'utilisation. Notez que la description peut s'étaler sur plusieurs lignes suivant l'étiquette, comme pour `@examples`. L'étiquette `@export` indique pour un package que la fonction sera "exportée", c'est-à-dire, visible par l'utilisateur final du package (il peut aussi y avoir des fonctions internes au package uniquement). Pour apprendre à utiliser Roxygen dans sa dernière version (la deux), voyez le site du package [roxygen2](https://roxygen2.r-lib.org). Vous avez aussi accès à un aide-mémoire rapide dans Rstudio via le menu `Help -> Roxygen Quick Reference`.
+
+Une autre façon de documenter une fonction consiste à écrire une **vignette**. Il s'agit d'un document au format R Markdown qui va détailler l'utilisation concrète de la fonction dans le contexte d'un petit tutoriel. Les vignettes servent aussi à expliquer le pourquoi et le comment d'une fonction. Toutes les fonctions ne disposent pas d'une vignette comme vous pouvez vous en douter.
+
+```{r, eval=FALSE}
+# Pour prendre connaissance des vignettes disponible dans un package
+vignette(package = 'dplyr')
+# Visualiser une vignette particulière
+vignette("dplyr", package = 'dplyr')
+```
+
+##### À vous de jouer ! {.unnumbered}
+
+```{r assign_D08Ga_project_II, echo=FALSE, results='asis'}
+if (exists("assignment"))
+  assignment("D08Ga_project", part = "II",
+    url = "https://github.com/BioDataScience-Course/D08Ga_project",
+    course.ids = c(
+      'S-BIOG-043'         = !"D08Ia_{YY}M_project"),
+    course.urls = c(
+      'S-BIOG-043'         = !"{assign_url$D08Ga_project}"),
+    course.starts = c(
+      'S-BIOG-043'         = !"{class1_start(mod, 'D08')}"),
+    course.ends = c(
+      'S-BIOG-043'         = !"{n4_end(mod, 'D10')}"),
+    term = "Q1", level = 4, n = 1,
+    toc = "Organisation d'un projet (partie II)")
+```
+
+##### Pour en savoir plus {.unnumbered}
+
+-   [Écrire vos propres fonctions R](http://www.sthda.com/french/wiki/ecrire-vos-propres-fonctions-r) stdah explique l'écriture des fonctions dans R en français.
+
+-   [Writing functions in Nice R Code](https://nicercode.github.io/intro/writing-functions.html) Nice R code propose une explication sur l'écriture des fonctions pour les débutants en anglais. Voir aussi [Functions in Nice R Code](https://nicercode.github.io/guides/functions/), également en anglais.
+
+-   [Chapter 24: Functions in R for DataScience 2nd Edition](https://r4ds.hadley.nz/functions.html) R for Data Science développe un chapitre consacré à l'écriture des fonctions dans R en anglais. Ce livre est également disponible en français, mais uniquement de manière payante chez Eyrolles et dans sa première édition <https://www.eyrolles.com/Informatique/Livre/r-pour-les-data-sciences-9782212675719/>.
+
+-   [Chapter Functions in Advance R](http://adv-r.had.co.nz/Functions.html) Un autre chapitre consacré à l'écriture de fonctions en anglais. Il permet de compléter vos connaissances suite à la lecture du lien précédent.
+
+-   [Chapter 10: Writing your own functions in An introduction to R](https://cran.r-project.org/doc/manuals/R-intro.html#Writing-your-own-functions) An introduction to R est le document officiel consacré à R. La section 10 est consacrée à l'écriture de fonctions, en anglais.
+
+## Récapitulatif des exercices {#recapitulatifd09}
+
+Dans ce module 9, vous aviez à réaliser les exercices suivants :
+
+`r show_ex_toc("09")`
+
+##### Progression {.unnumbered}
+
+`r launch_report("09", height = 800)`
+
