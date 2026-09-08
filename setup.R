@@ -17,11 +17,11 @@ learnitdown <- list(
   imgbaseurl =
     "https://filedn.com/lzGVgfOGxb6mHFQcRn9ueUb/sdd-umons3", # The base URL for external (big) images
   shiny_imgdir = "images/shinyapps",   # The Shiny image directory (screenshots)
-  svbox = 2025,                        # The SciViews Box version used
-  rstudio = "start_rstudio2025.html",  # Run Rstudio from the box
+  svbox = 2026,                        # The SciViews Box version used
+  rstudio = "start_rstudio2026.html",  # Run Rstudio from the box
   package = "BioDataScience3",         # Associated package for the exercises
   institutions = "UMONS",              # Known institutions
-  sets = "25M",                        # The course set (in case there are several ones)
+  sets = "26M",                        # The course set (in case there are several ones)
   courses = c(
     "S-BIOG-025",                      # SDD3
     #"BINF-Y402",                       # SDD 3 at Charleroi (ULB course id?)
@@ -35,12 +35,12 @@ learnitdown <- list(
     "Science des Données Biologiques IV à l'UMONS"
   ),
   terms = c("Q1", "Q1"),                 # The term of each course
-  acad_year = "2025-2026",               # The academic year
-  YY = 25,                               # The academic year short id
-  YYYY = 2025,                           # The academic year long id
-  W = as.Date("2025-09-07") + (0:37)*7,  # Sundays before each academic week
-  Q1 = as.Date("2025-09-07") + (0:15)*7, # There are 15 weeks at Q1
-  Q2 = as.Date("2026-02-01") + c(0:11, 14:16)*7 # Q2 starts 02/02 w22 but w33-34 are holidays
+  acad_year = "2026-2027",               # The academic year
+  YY = 26,                               # The academic year short id
+  YYYY = 2026,                           # The academic year long id
+  W = as.Date("2026-09-06") + (0:37)*7,  # Sundays before each academic week
+  Q1 = as.Date("2026-09-06") + (0:15)*7, # There are 15 weeks at Q1
+  Q2 = as.Date("2027-01-31") + c(0:11, 14:16)*7 # Q2 starts 02/02 w22 but w33-34 are holidays
 )
 
 # Course start and end dates
@@ -71,18 +71,18 @@ rownames(learnitdown$mod) <- learnitdown$mod$id
 # Assignment URLS
 learnitdown$assign_url <- list(
   # SDD3
-  C00Qa_issues         = "https://classroom.github.com/a/szP1qZ9s",
-  C01Ia_debug          = "https://classroom.github.com/a/J8pmAcmX",
-  C01Ib_lda            = "https://classroom.github.com/a/KebgqQXM",
-  C01Ga_metrics        = "https://classroom.github.com/a/6YLX7ccV",
-  C02Ia_zoo            = "https://classroom.github.com/a/3viLYZaN",
-  C03Ia_cardiovascular = "https://classroom.github.com/a/3p2xDMRm",
+  C00Qa_issues         = "https://classroom.github.com/a/...",
+  C01Ia_debug          = "https://classroom.github.com/a/...",
+  C01Ib_lda            = "https://classroom.github.com/a/...",
+  C01Ga_metrics        = "https://classroom.github.com/a/...",
+  C02Ia_zoo            = "https://classroom.github.com/a/...",
+  C03Ia_cardiovascular = "https://classroom.github.com/a/...",
   C03Ca_ml_wine        = "https://classroom.github.com/a/...",
-  C04Ia_ts             = "https://classroom.github.com/a/dbACkh84",
-  C04Ga_tseries        = "https://classroom.github.com/a/MsFhNyx3",
-  C05Ia_tsd            = "https://classroom.github.com/a/HxuNIeEa",
+  C04Ia_ts             = "https://classroom.github.com/a/...",
+  C04Ga_tseries        = "https://classroom.github.com/a/...",
+  C05Ia_tsd            = "https://classroom.github.com/a/...",
   # SDD4
-  D00Qa_issues         = "https://classroom.github.com/a/2-eyJMao",
+  D00Qa_issues         = "https://classroom.github.com/a/...",
   D06Ia_map            = "https://classroom.github.com/a/...",
   D07Ia_data           = "https://classroom.github.com/a/...",
   D08Ga_project        = "https://classroom.github.com/a/..."
@@ -104,14 +104,14 @@ n4_end <- function(x, module, hour = "23:59:59")
 
 # Examples:
 #!"svbox{svbox} is for academic year {acad_year}"
-#  -> svbox2024 is for academic year 2024-2025
+#  -> svbox2026 is for academic year 2026-2027
 
 
 # Link inside the courses: the link are a little bit more complex because the
 # bookdown is embedded in a Wordpress site. A direct link like:
-# https://wp.sciviews.org/sdd-umons2-2025/outils-de-diagnostic-suite.html#résumé-avec-summarysuite
+# https://wp.sciviews.org/sdd-umons2-2026/outils-de-diagnostic-suite.html#résumé-avec-summarysuite
 # becomes:
-# https://wp.sciviews.org/sdd-umons2/?iframe=wp.sciviews.org/sdd-umons2-2025/outils-de-diagnostic-suite.html%23résumé-avec-summarysuite
+# https://wp.sciviews.org/sdd-umons2/?iframe=wp.sciviews.org/sdd-umons2-2026/outils-de-diagnostic-suite.html%23résumé-avec-summarysuite
 course_link <- function(label, course = 1, page, anchor = "", year = !"{YYYY}",
     baseurl = !"{baseurl}", course_page = "sdd-umons") {
   if (course == 1) {
