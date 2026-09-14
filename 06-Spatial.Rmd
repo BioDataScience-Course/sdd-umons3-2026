@@ -412,7 +412,11 @@ st_as_raster.geomat <- function(x, crs = "+proj=longlat +datum=WGS84", ...) {
 library(sf)
 
 st_as_sf.geoshapes <- function(x, name = "P1", crs = "+proj=longlat +datum=WGS84", ...) {
-  x2 <- dplyr::bind_rows(as.list(unclass(x)), .id = "id")
+  x1 <- unclass(x)
+  attr(x1, "dim") <- NULL
+  attr(x1, "dimnames") <- NULL
+  
+  x2 <- dplyr::bind_rows(x1, .id = "id")
   points <- st_as_sf(x2, coords = c("x", "y"))
   polygons <- st_sf(aggregate(points$geometry, list(points$id),
     function(g) st_cast(st_combine(g), "POLYGON")))
@@ -499,6 +503,7 @@ morocco <- read("morocco", package = "aurelhy")
 m_tm <- st_as_raster(morocco)
 mbord <- read("mbord", package = "aurelhy")
 mbord[[1]] <- mbord[[1]][-(1:28), ] # Données inutiles au début à éliminer
+#m_bord <- st_as_sf(stars::st_as_stars(mbord[[1]]), name = "Morocco")
 m_bord <- st_as_sf(mbord, name = "Morocco")
 ```
 
@@ -573,7 +578,7 @@ mf_layout(title = "Afrique", frame = TRUE, scale = TRUE,
 
 Le package [{tmap}](https://r-tmap.github.io/tmap/) est un package dédié à la représentation cartographique dont la syntaxe va se rapprocher de celle de {ggplot2} (utilisé avec `chart()`). En effet, il superpose des couches sur le graphique en utilisant l'opérateur `+` comme vous avez l'habitude de faire jusqu'ici pour vos graphiques en R. Mais il est beaucoup plus rapide que {ggplot2} et permet de combiner à souhait des couches vectorielles et rasters. Il comprend également une série de fonctions de personnalisation de cartes très intéressantes.
 
-Si nous reprenons notre carte du continent africain, cela donnera ceci en {tmap} : `tm_shape()` lit les données d'un objet **raster** ou **sf** et les fonctions suivantes telles que `tm_polygons` ou `tm_borders()` vont jouer le même effet que `geom_xxx()` dans {ggplot2} en matérialisant ces données sous une forme particulière (ici un polygone) sur la carte. Des fonctions comme `tm_compass()` ou `tm_scale_bar()` vont orienter la carte et lui ajouter une échelle. Enfin, `tm_layout()` propose de nombreux paramètres pour changer l'apparence de la carte et sont l'équivalent des fonctions `theme_xxx()` de {ggplot2}. Avec la `r !{"SciViews Box {YYYY}"}` , vous n'avez pas besoin de charger {tmap} à l'aide de `library(tmap)`. Si vous avez indiqué `SciViews::R("spatial")` plus haut dans votre document, {tmap} est *déjà* chargé.
+Si nous reprenons notre carte du continent africain, cela donnera ceci en {tmap} : `tm_shape()` lit les données d'un objet **raster** ou **sf** et les fonctions suivantes telles que `tm_polygons` ou `tm_borders()` vont jouer le même effet que `geom_xxx()` dans {ggplot2} en matérialisant ces données sous une forme particulière (ici un polygone) sur la carte. Des fonctions comme `tm_compass()` ou `tm_scalebar()` vont orienter la carte et lui ajouter une échelle. Enfin, `tm_layout()` propose de nombreux paramètres pour changer l'apparence de la carte et sont l'équivalent des fonctions `theme_xxx()` de {ggplot2}. Avec la `r !{"SciViews Box {YYYY}"}` , vous n'avez pas besoin de charger {tmap} à l'aide de `library(tmap)`. Si vous avez indiqué `SciViews::R("spatial")` plus haut dans votre document, {tmap} est *déjà* chargé.
 
 ```{r}
 tm_shape(africa_sa) +
@@ -581,7 +586,7 @@ tm_shape(africa_sa) +
   # Mise en évidence de l'Afrique Australe
   tm_fill("austral", legend.show = FALSE) + 
   tm_compass(position = c("right", "top")) + # Ajout de l'orientation
-  tm_scale_bar(position = c("left", "bottom")) + # Ajout de l'échelle
+  tm_scalebar(position = c("left", "bottom")) + # Ajout de l'échelle
   tm_layout(bg.color = "skyblue") # Ajout d'un fond bleu
 ```
 
@@ -1030,7 +1035,7 @@ tmap_arrange(m_map_ku, m_map_rain)
 Nous avons deux interpolations assez semblables, mais le krigeage donne une estimation un peu plus diffuse, là où AURELHY utilise réellement le relief très escarpé de l'Atlas pour prédire des pluies très contrastées sur des distances faibles. Terminons ceci en beauté avec une comparaison du relief et des pluies observées à gauche avec le résultat issu d'AURELHY à droite.
 
 ```{r}
-tmap_arrange(m_map3, m_map_rain + tm_compass() + tm_scale_bar())
+tmap_arrange(m_map3, m_map_rain + tm_compass() + tm_scalebar())
 ```
 
 </details>
