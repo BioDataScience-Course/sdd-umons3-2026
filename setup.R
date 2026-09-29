@@ -83,8 +83,8 @@ learnitdown$assign_url <- list(
   C05Ia_tsd            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C05Ia_{YY}M_tsd-",
   # SDD4
   D00Qa_issues         = !"https://github.com/BioDataScience-Course/D00Qa_{YY}M_issues-d{YY}/issues",
-  D06Ia_map            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D06Ia_{YY}M_map-",,
-  D07Ia_data           = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D07Ia_{YY}M_data-",,
+  D06Ia_map            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D06Ia_{YY}M_map-",
+  D07Ia_data           = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D07Ia_{YY}M_data-",
   D08Ga_project        = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D08Ga_{YY}M_project-"
 )
 
