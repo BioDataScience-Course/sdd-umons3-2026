@@ -71,21 +71,21 @@ rownames(learnitdown$mod) <- learnitdown$mod$id
 # Assignment URLS
 learnitdown$assign_url <- list(
   # SDD3
-  C00Qa_issues         = "https://classroom.github.com/a/...",
-  C01Ia_debug          = "https://classroom.github.com/a/...",
-  C01Ib_lda            = "https://classroom.github.com/a/...",
-  C01Ga_metrics        = "https://classroom.github.com/a/...",
-  C02Ia_zoo            = "https://classroom.github.com/a/...",
-  C03Ia_cardiovascular = "https://classroom.github.com/a/...",
-  C03Ca_ml_wine        = "https://classroom.github.com/a/...",
-  C04Ia_ts             = "https://classroom.github.com/a/...",
-  C04Ga_tseries        = "https://classroom.github.com/a/...",
-  C05Ia_tsd            = "https://classroom.github.com/a/...",
+  C00Qa_issues         = !"https://github.com/BioDataScience-Course/C00Qa_{YY}M_issues-c{YY}/issues",
+  C01Ia_debug          = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C01Ia_{YY}M_debug-",
+  C01Ib_lda            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C01Ib_{YY}M_lda-",
+  C01Ga_metrics        = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C01Ga_{YY}M_metrics-",
+  C02Ia_zoo            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C02Ia_{YY}M_zoo-",
+  C03Ia_cardiovascular = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C03Ia_{YY}M_cardiovascular-",
+  C03Ca_ml_wine        = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C03Ca_{YY}M_ml_wine-",
+  C04Ia_ts             = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C04Ia_{YY}M_ts-",
+  C04Ga_tseries        = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C04Ga_{YY}M_tseries-",
+  C05Ia_tsd            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=C05Ia_{YY}M_tsd-",
   # SDD4
-  D00Qa_issues         = "https://classroom.github.com/a/...",
-  D06Ia_map            = "https://classroom.github.com/a/...",
-  D07Ia_data           = "https://classroom.github.com/a/...",
-  D08Ga_project        = "https://classroom.github.com/a/..."
+  D00Qa_issues         = !"https://github.com/BioDataScience-Course/D00Qa_{YY}M_issues-d{YY}/issues",
+  D06Ia_map            = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D06Ia_{YY}M_map-",,
+  D07Ia_data           = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D07Ia_{YY}M_data-",,
+  D08Ga_project        = !"https://github.com/orgs/BioDataScience-Course/repositories?q=D08Ga_{YY}M_project-"
 )
 
 # Date and time for start and end of classes for each module
@@ -251,11 +251,13 @@ term = if (as.integer(substring(id, 2, 3)) < 6L) !"{terms[1]}" else
     term = term, set = set)
 
 # Note: use course.urls = c(`S-BIOG-025` = "classroom url1", `S-BIOG-943` = "classroom url2", `S-BIOG-077` = "classroom url3"), and url = link to Github template repository for the assignation
+a_texts <- learnitdown::assignment_fr()
+a_texts$alt <- paste0("**[Votre projet dans GitHub]",
+  "({url}){{target=\"_blank\"}}**")
 assignment <- function(name, url, course.ids = NULL, course.urls = NULL,
   course.starts = NULL, course.ends = NULL, part = NULL, toc = "", clone = TRUE,
   level = 3, n = 1, type = "ind. github", institution = !"{institutions[1]}",
-  acad_year = !"{acad_year}", term = "Q1",  set = !"{sets[1]}",
-  texts = learnitdown::assignment_fr())
+  acad_year = !"{acad_year}", term = "Q1", set = !"{sets[1]}", texts = a_texts)
   learnitdown::assignment(name = name, url = url, course.ids = course.ids,
     course.urls = course.urls, course.starts = course.starts,
     course.ends = course.ends, part = part,
@@ -266,11 +268,13 @@ assignment <- function(name, url, course.ids = NULL, course.urls = NULL,
     assign.link = paste(learnitdown$baseurl, "github_assignment", sep = "/"),
     template = "assignment_fr.html", baseurl = learnitdown$baseurl)
 
+a2_texts <- learnitdown::assignment2_fr()
+a2_texts$alt <- paste0("**[Votre projet dans GitHub]",
+  "({url}){{target=\"_blank\"}}**")
 assignment2 <- function(name, url, course.ids = NULL, course.urls = NULL,
   course.starts = NULL, course.ends = NULL, part = NULL, toc = "", clone = TRUE,
   level = 4, n = 2, type = "group github", institution = !"{institutions[1]}",
-  acad_year = !"{acad_year}", term = "Q1",  set = !"{sets[1]}",
-  texts = learnitdown::assignment2_fr())
+  acad_year = !"{acad_year}", term = "Q1", set = !"{sets[1]}", texts = a2_texts)
   learnitdown::assignment2(name = name, url = url, course.ids = course.ids,
     course.urls = course.urls, course.starts = course.starts,
     course.ends = course.ends, part = part,
@@ -328,3 +332,10 @@ learnitdown::learnitdown_init(
 
 # Knitr default options
 knitr::opts_chunk$set(comment = "#", fig.align = "center")
+
+# Format-dependent sections
+is_html_output = function()
+  knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
+
+is_pdf_output = function()
+  knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"
