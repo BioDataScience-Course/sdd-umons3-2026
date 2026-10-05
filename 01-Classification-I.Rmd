@@ -385,7 +385,7 @@ if (exists("assignment2"))
     course.urls = c(
       'S-BIOG-025'         = !"{assign_url$C01Ga_metrics}"),
     course.starts = c(
-      'S-BIOG-025'         = !"{class2_start(mod, 'C01')}"),
+      'S-BIOG-025'         = !"{class1_start(mod, 'C01')}"),
     course.ends = c(
       'S-BIOG-025'         = !"{n4_end(mod, 'C03')}"),
     term = "Q1", level = 0, n = 4,
