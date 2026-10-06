@@ -220,15 +220,15 @@ Enfin, vous avez à disposition un learnr de "feedback" qui vous permet de faire
 
 Ceci est le planning des séances pour SDD III. Pour SDD IV, le planning est plus souple et défini de commun accord avec les étudiants qui se sont inscrits à cette UE pour s'adapter au mieux à leurs contraintes (stages, mémoire...)
 
-| Module             | Préparation pour le ... | Fin N1-N3            | Projet N4                   | Challenge                       | Interrogation              |
-|:-------------------|:------------------------|:---------------------|:----------------------------|:--------------------------------|:---------------------------|
-| **Quadri 1**       |                         |                      |                             |                                 |                            |
-| *(install party)*  | `r !"{mod$start[1]}"`   | `r !"{mod$N3[1]}"`   | `r !"{mod$N4[1]}"`          | **`r !"{mod$challenge[1]}"`**   | **`r !"{mod$test[1]}"`**   |
-| 1 Classif. I       | `r !"{mod$start[2]}"`   | `r !"{mod$N3[2]}"`   | `r !"{mod$N4[2]}"`          | **`r !"{mod$challenge[2]}"`**   | **`r !"{mod$test[2]}"`**   |
-| 2 Classif. II      | `r !"{mod$start[3]}"`   | `r !"{mod$N3[3]}"`   | `r !"{mod$N4[3]}"`          | **`r !"{mod$challenge[3]}"`**   | **`r !"{mod$test[3]}"`**   |
-| 3 Classif. III     | `r !"{mod$start[4]}"`   | `r !"{mod$N3[4]}"`   | **fin `r !"{mod$N4[4]}"`**  | **`r !"{mod$challenge[4]}"`**   | **`r !"{mod$test[4]}"`**   |
-| 4 Chrono. I        | `r !"{mod$start[5]}"`   | `r !"{mod$N3[5]}"`   | `r !"{mod$N4[5]}"`          | **`r !"{mod$challenge[5]}"`**   | **`r !"{mod$test[5]}"`**   |
-| 5 Chrono. II       | `r !"{mod$start[6]}"`   | `r !"{mod$N3[6]}"`   | **fin `r !"{mod$N4[6]}"`**  | **`r !"{mod$challenge[6]}"`**   | **`r !"{mod$test[6]}"`**   |
+| Module             | Préparation pour le ... | Fin N1-N3            | Projet N4                   |  Interrogation              |
+|:-------------------|:------------------------|:---------------------|:----------------------------|:---------------------------|
+| **Quadri 1**       |                         |                      |                             |                            |
+| *(install party)*  | `r !"{mod$start[1]}"`   | `r !"{mod$N3[1]}"`   | `r !"{mod$N4[1]}"`          | **`r !"{mod$test[1]}"`**   |
+| 1 Classif. I       | `r !"{mod$start[2]}"`   | `r !"{mod$N3[2]}"`   | `r !"{mod$N4[2]}"`          | **`r !"{mod$test[2]}"`**   |
+| 2 Classif. II      | `r !"{mod$start[3]}"`   | `r !"{mod$N3[3]}"`   | `r !"{mod$N4[3]}"`          | **`r !"{mod$test[3]}"`**   |
+| 3 Classif. III     | `r !"{mod$start[4]}"`   | `r !"{mod$N3[4]}"`   | **fin `r !"{mod$N4[4]}"`**  | **`r !"{mod$test[4]}"`**   |
+| 4 Chrono. I        | `r !"{mod$start[5]}"`   | `r !"{mod$N3[5]}"`   | `r !"{mod$N4[5]}"`          | **`r !"{mod$test[5]}"`**   |
+| 5 Chrono. II       | `r !"{mod$start[6]}"`   | `r !"{mod$N3[6]}"`   | **fin `r !"{mod$N4[6]}"`**  | **`r !"{mod$test[6]}"`**   |
 
 : Dates importantes pour les activités de science des données biologiques III (à 23:59:59 pour les fins de projets N3 ou N4, à l'heure de la séance en présentiel pour les autres dates).
 
